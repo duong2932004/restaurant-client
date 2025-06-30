@@ -1,0 +1,36 @@
+{
+  "Home": {
+    "title": "Chào mừng đến với Nhà hàng của Dương",
+    "about": "Trải nghiệm ẩm thực Việt đích thực trong không gian ấm cúng và sang trọng.",
+    "button": "Đặt chỗ"
+  },
+  "Headers": {
+    "menu": "Thực đơn",
+    "cart": "giỏ hàng",
+    "orders": "Đơn hàng",
+    "settings": "Cài đặt",
+    "account": "Tài khoản"
+  },
+  "login": {
+    "title": "Đăng nhập vào tài khoản của bạn",
+    "describe": "Nhập email bên dưới để đăng nhập vào tài khoản",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu",
+    "login": "Đăng nhập",
+    "describe2": "Hoặc tiếp tục với",
+    "login2": "Đăng nhập bằng Google",
+    "question": "Chưa có tài khoản?",
+    "signUp": "Đăng ký"
+  },
+  "register": {
+    "title": "Đăng ký tài khoản",
+    "describe": "Đăng ký tài khoản để nhận ưu đãi",
+    "userName": "Tên tài khoản",
+    "password": "Mật khẩu",
+    "reEnterPassword": "Nhập lại mật khẩu",
+    "register": "Đăng Ký",
+    "describe2": "Hoặc tiếp tục với",
+    "login2": "Đăng nhập bằng Google"
+  }
+}

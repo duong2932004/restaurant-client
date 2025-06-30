@@ -1,0 +1,36 @@
+{
+  "Home": {
+    "title": "Welcome to Duong Restaurant",
+    "about": "Experience authentic Vietnamese cuisine in a cozy and luxurious space.",
+    "button": "Make a Reservation"
+  },
+  "Headers": {
+    "menu": "Menu",
+    "cart": "Cart",
+    "orders": "Orders",
+    "settings": "Settings",
+    "account": "Account"
+  },
+  "login": {
+    "title": "Login to your account",
+    "describe": "Enter your email below to login to your account",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password",
+    "login": "Login",
+    "describe2": "Or continue with",
+    "login2": "Login with Google",
+    "question": "Don't have an account?",
+    "signUp": "Sign up"
+  },
+  "register": {
+    "title": "Register Account",
+    "describe": "Register an account to receive promotions",
+    "userName": "Username",
+    "password": "Password",
+    "reEnterPassword": "Re-enter Password",
+    "register": "Register",
+    "describe2": "Or continue with",
+    "login2": "Login with Google"
+  }
+}
