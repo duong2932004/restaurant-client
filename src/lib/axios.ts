@@ -15,14 +15,27 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const { config, response } = error;
+
+    // Nếu 401 và chưa retry
     if (response?.status === 401 && !config._retry) {
       config._retry = true;
       try {
-        await axiosInstance.post("auth/refresh");
+        // Gọi refresh token
+        await axiosInstance.post("/api/users/refresh");
+        // Retry request ban đầu
         return axiosInstance(config);
       } catch (refreshError) {
-        window.location.href = "/login";
+        // Refresh thất bại → redirect login
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
         return Promise.reject(refreshError);
+      }
+    }
+
+    if (response?.status === 403) {
+      if (typeof window !== "undefined") {
+        window.location.href = "/forbidden";
       }
     }
     return Promise.reject(error);

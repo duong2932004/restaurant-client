@@ -1,4 +1,7 @@
-// Định nghĩa hàm refreshToken
+import axios from "axios";
+
+const baseURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api";
+
 const refreshToken = async () => {
   try {
     // Gửi request tới endpoint refresh
