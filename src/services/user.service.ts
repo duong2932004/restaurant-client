@@ -1,5 +1,4 @@
 import axiosInstance from "@/lib/axios";
-import { handleServiceError, ErrorResponse } from "@/lib/serviceHelpers";
 
 export interface RegisterData {
   name: string;
@@ -20,39 +19,39 @@ export interface User {
 }
 
 export const userService = {
-  async register(data: RegisterData): Promise<User | ErrorResponse> {
+  async register(data: RegisterData): Promise<User> {
     try {
       const response = await axiosInstance.post("/users/register", data);
       return response.data;
     } catch (error: any) {
-      return handleServiceError(error, "Registration failed");
+      throw new Error(error.response?.data?.message || "Registration failed");
     }
   },
 
-  async login(data: LoginData): Promise<User | ErrorResponse> {
+  async login(data: LoginData): Promise<User> {
     try {
       const response = await axiosInstance.post("/users/login", data);
       return response.data;
     } catch (error: any) {
-      return handleServiceError(error, "Login failed");
+      throw new Error(error.response?.data?.message || "Login failed");
     }
   },
 
-  async getCurrentUser(): Promise<User | ErrorResponse> {
+  async getCurrentUser(): Promise<User> {
     try {
       const response = await axiosInstance.get("/users/me");
       return response.data;
     } catch (error: any) {
-      return handleServiceError(error, "Failed to get user");
+      throw new Error(error.response?.data?.message || "Failed to get user");
     }
   },
 
-  async logout(): Promise<{ success: boolean } | ErrorResponse> {
+  async logout(): Promise<{ success: boolean }> {
     try {
       await axiosInstance.post("/users/logout");
       return { success: true };
     } catch (error: any) {
-      return handleServiceError(error, "Logout failed");
+      throw new Error(error.response?.data?.message || "Logout failed");
     }
   },
 };
