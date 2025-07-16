@@ -3,17 +3,59 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import Link from "next/link";
 import { useTranslations } from "next-intl";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useLogin } from "@/hooks/useAuth";
+
+const schema = z.object({
+  email: z.string().email("email không hợp lệ"),
+  password: z.string().min(6, "Mật khẩu it nhất 6 ký tự"),
+});
+
+type FormData = z.infer<typeof schema>;
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
   const t = useTranslations("login");
+  const loginMutation = useLogin();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      await loginMutation.mutateAsync({
+        email: data.email,
+        password: data.password,
+      });
+    } catch (error: any) {
+      console.error("Login error:", error);
+      if (error.response?.status === 400) {
+        alert(
+          "Tài khoản không tồn tại. Vui lòng đăng ký tài khoản mới hoặc kiểm tra lại email/mật khẩu."
+        );
+      } else {
+        alert("Đăng nhập thất bại. Vui lòng thử lại sau.");
+      }
+    }
+  };
 
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form
+      className={cn("flex flex-col gap-6", className)}
+      {...props}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground text-sm text-balance">
@@ -23,7 +65,13 @@ export function LoginForm({
       <div className="grid gap-6">
         <div className="grid gap-3">
           <Label htmlFor="email">{t("email")}</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input
+            {...register("email")}
+            id="email"
+            type="email"
+            placeholder="m@example.com"
+            required
+          />
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
@@ -35,14 +83,20 @@ export function LoginForm({
               {t("forgotPassword")}
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <Input
+            {...register("password")}
+            id="password"
+            type="password"
+            required
+          />
         </div>
-        <Link href={"/"}>
-          {" "}
-          <Button type="submit" className="w-full">
-            {t("login")}
-          </Button>
-        </Link>
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={loginMutation.isPending}
+        >
+          {loginMutation.isPending ? "Đang đăng nhập..." : t("login")}
+        </Button>
 
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">

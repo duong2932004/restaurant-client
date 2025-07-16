@@ -37,8 +37,7 @@ export function RegisterForm({
         password: formData.password,
       });
 
-      // Thông báo thành công và tự động chuyển trang (được xử lý trong onSuccess)
-      alert("Đăng ký thành công! Bạn đã được đăng nhập tự động.");
+      alert("Đăng ký thành công! Bạn được chuyển về trang đăng nhập");
     } catch (error: any) {
       alert(error.response?.data?.message || "Đăng ký thất bại");
     }
