@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { store } from "@/store";
 import { ThemeProvider } from "@/utils/btn-utilities/darkMode/theme-provider";
 import { ToastProvider as ToastContextProvider } from "@/contexts/ToastContext";
-import { ToastContainer } from "@/components/ToastContainer";
+import { ToastContainer } from "@/components/ui/ToastContainer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,7 +17,7 @@ const queryClient = new QueryClient({
   },
 });
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function MainProviders({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>

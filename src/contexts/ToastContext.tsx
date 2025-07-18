@@ -45,15 +45,15 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     type: "info",
   });
 
-  useEffect(() => {
-    if (toastOpen) {
-      const timer = setTimeout(() => {
-        setToastOpen(false);
-      }, 3000);
+  // useEffect(() => {
+  //   if (toastOpen) {
+  //     const timer = setTimeout(() => {
+  //       setToastOpen(false);
+  //     }, 3000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [toastOpen]);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [toastOpen]);
 
   const showToast = (
     title: string,

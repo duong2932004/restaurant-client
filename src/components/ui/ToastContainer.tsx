@@ -2,8 +2,8 @@
 
 import React from "react";
 import { useToast } from "@/contexts/ToastContext";
-import ToastComponent from "./shadcn/ToastComponent";
-import { ToastProvider } from "./shadcn/ToastComponent";
+import ToastComponent from "./ToastComponent";
+import { ToastProvider } from "./ToastComponent";
 
 export const ToastContainer: React.FC = () => {
   const { toastOpen, setToastOpen, toastMessage } = useToast();

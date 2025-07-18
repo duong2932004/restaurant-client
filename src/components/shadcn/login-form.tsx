@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLogin } from "@/hooks/useAuth";
+import { useToast } from "@/contexts/ToastContext";
 
 const schema = z.object({
   email: z.string().email("email không hợp lệ"),
@@ -23,6 +24,7 @@ export function LoginForm({
 }: React.ComponentProps<"form">) {
   const t = useTranslations("login");
   const loginMutation = useLogin();
+  const { showToast } = useToast();
 
   const {
     register,
@@ -102,7 +104,18 @@ export function LoginForm({
             {t("describe2")}
           </span>
         </div>
-        <Button variant="outline" className="w-full">
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
+          onClick={() =>
+            showToast(
+              "Notification",
+              "Tính năng đang được phát triển",
+              "warning"
+            )
+          }
+        >
           <img src="/assets/svgs/logo-google.svg" style={{ height: "100%" }} />
           {t("login2")}
         </Button>

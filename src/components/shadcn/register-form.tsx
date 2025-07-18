@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTranslations } from "next-intl";
 import { useRegister } from "@/hooks/useAuth";
+import { useToast } from "@/contexts/ToastContext";
 
 export function RegisterForm({
   className,
@@ -14,6 +15,7 @@ export function RegisterForm({
 }: React.ComponentProps<"form">) {
   const t = useTranslations("register");
   const registerMutation = useRegister();
+  const { showToast } = useToast();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -125,7 +127,18 @@ export function RegisterForm({
             {t("describe2")}
           </span>
         </div>
-        <Button variant="outline" className="w-full">
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
+          onClick={() =>
+            showToast(
+              "Notification",
+              "Tính năng đang được phát triển",
+              "warning"
+            )
+          }
+        >
           <img src="/assets/svgs/logo-google.svg" style={{ height: "100%" }} />
           {t("login2")}
         </Button>
