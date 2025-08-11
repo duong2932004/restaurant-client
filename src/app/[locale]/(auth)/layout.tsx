@@ -4,7 +4,6 @@ import { GalleryVerticalEnd } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { LoginForm } from "@/components/shadcn/login-form";
 import UtilityButtons from "@/utils/btn-utilities";
 
 export default function LoginPage({ children }: { children: React.ReactNode }) {

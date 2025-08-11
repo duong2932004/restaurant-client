@@ -24,7 +24,6 @@ export function Header() {
         </div>
 
         <div className="flex flex-wrap justify-center sm:justify-end items-center gap-4 text-gray-700 font-medium">
-          {/* Luôn hiển thị link Account - không check auth */}
           <Link
             href="/account"
             className="hover:text-primary transition font-medium"

@@ -35,7 +35,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     if (process.env.NODE_ENV === "development") {
-      console.log(` ${config.method?.toUpperCase()} ${config.url}`);
+      console.log(`${config.method?.toUpperCase()} ${config.url}`);
     }
     return config;
   },
@@ -64,7 +64,7 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(error);
       }
 
-      if (config.url?.includes("/login")) {
+      if (config.url?.includes("/login") || config.url?.includes("/register")) {
         return Promise.reject(error);
       }
 
@@ -89,7 +89,6 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(config);
       } catch (refreshError) {
         processQueue(refreshError, null);
-        console.log("Refresh failed, redirecting to login");
         if (typeof window !== "undefined") {
           window.location.href = "/login";
         }

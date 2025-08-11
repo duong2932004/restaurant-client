@@ -49,19 +49,12 @@ export default function AccountPage() {
   }
 
   if (isError || !user) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">
-              Không thể tải thông tin tài khoản
-            </h1>
-            <p className="text-gray-600">Vui lòng đăng nhập lại</p>
-          </div>
-        </div>
-      </div>
-    );
+    if (typeof window !== "undefined") {
+      window.location.href = "/login";
+    }
+    console.log("user", user);
+
+    return null;
   }
 
   const handleSaveProfile = () => {
@@ -70,7 +63,6 @@ export default function AccountPage() {
   };
 
   const handleLogout = () => {
-    // Implement logout logic
     showToast("Đăng xuất", "Bạn đã đăng xuất thành công", "info");
   };
 
@@ -79,7 +71,6 @@ export default function AccountPage() {
       <Header />
 
       <div className="container mx-auto px-4 py-8 max-w-6xl">
-        {/* Header Section */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <div className="flex items-center space-x-6">
             <Avatar className="h-20 w-20">
@@ -115,7 +106,6 @@ export default function AccountPage() {
           </div>
         </div>
 
-        {/* Main Content */}
         <Tabs defaultValue="profile" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger
@@ -145,7 +135,6 @@ export default function AccountPage() {
             </TabsTrigger>
           </TabsList>
 
-          {/* Profile Tab */}
           <TabsContent value="profile">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card>
@@ -241,7 +230,6 @@ export default function AccountPage() {
             </div>
           </TabsContent>
 
-          {/* Orders Tab */}
           <TabsContent value="orders">
             <Card>
               <CardHeader>
@@ -283,7 +271,6 @@ export default function AccountPage() {
             </Card>
           </TabsContent>
 
-          {/* Settings Tab */}
           <TabsContent value="settings">
             <div className="space-y-6">
               <Card>

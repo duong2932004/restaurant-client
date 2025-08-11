@@ -51,8 +51,8 @@ export const useCurrentUser = () => {
   return useQuery({
     queryKey: ["user", "current"],
     queryFn: userService.getCurrentUser,
-    enabled: false,
-    retry: false,
+    enabled: true,
+    retry: 1,
     staleTime: 5 * 60 * 1000,
   });
 };
