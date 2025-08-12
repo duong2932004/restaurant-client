@@ -33,7 +33,7 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: userService.login,
-    onSuccess: (user) => {
+    onSuccess: () => {
       showToast("Thành công!", "Đăng nhập thành công.", "success");
       router.push("/");
     },
@@ -54,5 +54,25 @@ export const useCurrentUser = () => {
     enabled: true,
     retry: 1,
     staleTime: 5 * 60 * 1000,
+  });
+};
+
+export const useLogout = () => {
+  const router = useRouter();
+  const { showToast } = useToast();
+
+  return useMutation({
+    mutationFn: userService.logout,
+    onSuccess: () => {
+      showToast("Đăng xuất", "Bạn đã đăng xuất thành công", "info");
+      router.push("/login");
+    },
+    onError: (error: any) => {
+      showToast(
+        "Lỗi đăng xuất",
+        error.message || "Đăng xuất thất bại. Vui lòng thử lại.",
+        "error"
+      );
+    },
   });
 };

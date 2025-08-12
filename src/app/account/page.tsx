@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/hooks/useAuth";
+import { useCurrentUser, useLogout } from "@/hooks/useAuth";
 import { Header } from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,10 +29,10 @@ import {
 } from "lucide-react";
 import { useToast } from "@/contexts/ToastContext";
 import { useState } from "react";
-
 export default function AccountPage() {
   const { data: user, isLoading, isError } = useCurrentUser();
   const { showToast } = useToast();
+  const logoutMutation = useLogout();
   const [isEditing, setIsEditing] = useState(false);
 
   if (isLoading) {
@@ -63,7 +63,7 @@ export default function AccountPage() {
   };
 
   const handleLogout = () => {
-    showToast("Đăng xuất", "Bạn đã đăng xuất thành công", "info");
+    logoutMutation.mutate();
   };
 
   return (
