@@ -11,11 +11,20 @@ export interface LoginData {
   password: string;
 }
 
+export interface Address {
+  name: string;
+  address: string;
+  isDefault?: boolean;
+}
+
 export interface User {
   _id: string;
   name: string;
   email: string;
   role: string;
+  avatar?: string;
+  phone?: string;
+  addresses?: Address[];
 }
 
 export const userService = {

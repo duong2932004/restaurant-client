@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "@/store/userSlice";
-import type { RootState, AppDispatch } from "@/store";
+import { useRegister } from "@/hooks/useAuth";
 
 export function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -13,8 +11,7 @@ export function RegisterForm() {
     confirmPassword: "",
   });
 
-  const dispatch = useDispatch<AppDispatch>();
-  const { loading, error } = useSelector((state: RootState) => state.user);
+  const registerMutation = useRegister();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,20 +21,8 @@ export function RegisterForm() {
       return;
     }
 
-    // Dispatch async action - vừa gọi API vừa cập nhật Redux state
-    const result = await dispatch(
-      registerUser({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      })
-    );
-
-    // Kiểm tra kết quả
-    if (registerUser.fulfilled.match(result)) {
-      alert("Đăng ký thành công!");
-      // Có thể redirect hoặc làm gì đó khác
-    }
+    const { confirmPassword, ...registerData } = formData;
+    registerMutation.mutate(registerData);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,14 +86,18 @@ export function RegisterForm() {
         />
       </div>
 
-      {error && <div className="text-red-500">{error}</div>}
+      {registerMutation.isError && (
+        <div className="text-red-500">
+          {registerMutation.error?.message || "Có lỗi xảy ra"}
+        </div>
+      )}
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={registerMutation.isPending}
         className="w-full p-2 bg-blue-500 text-white rounded disabled:opacity-50"
       >
-        {loading ? "Đang đăng ký..." : "Đăng ký"}
+        {registerMutation.isPending ? "Đang đăng ký..." : "Đăng ký"}
       </button>
     </form>
   );
