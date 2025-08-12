@@ -5,12 +5,10 @@ import { useTranslations } from "next-intl";
 import { NavigationMenuDemo } from "./NavigationMenuDemo";
 import UtilityButtons from "@/utils/btn-utilities";
 import { useToast } from "@/contexts/ToastContext";
-import { useRouter } from "@/i18n/navigation";
 
 export function Header() {
-  const t = useTranslations("Headers");
+  const t = useTranslations("headers");
   const { showToast } = useToast();
-  const router = useRouter();
 
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-6xl z-50 rounded-2xl border border-white/20 bg-white/30 backdrop-blur-md shadow-md">

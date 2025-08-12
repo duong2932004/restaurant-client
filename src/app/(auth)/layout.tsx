@@ -1,13 +1,12 @@
 "use client";
 
 import { GalleryVerticalEnd } from "lucide-react";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import UtilityButtons from "@/utils/btn-utilities";
 
 export default function LoginPage({ children }: { children: React.ReactNode }) {
-  const t = useTranslations("Headers");
+  const t = useTranslations("headers");
   const pathname = usePathname();
 
   const currentLocale = pathname.split("/")[1];

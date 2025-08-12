@@ -1,0 +1,12 @@
+{
+  "title": "Đăng nhập vào tài khoản của bạn",
+  "describe": "Nhập email bên dưới để đăng nhập vào tài khoản",
+  "email": "Email",
+  "password": "Mật khẩu",
+  "forgotPassword": "Quên mật khẩu",
+  "login": "Đăng nhập",
+  "describe2": "Hoặc tiếp tục với",
+  "login2": "Đăng nhập bằng Google",
+  "question": "Chưa có tài khoản?",
+  "signUp": "Đăng ký"
+}

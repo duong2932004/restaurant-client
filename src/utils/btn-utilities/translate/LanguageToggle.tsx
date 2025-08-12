@@ -1,21 +1,38 @@
-import { Button } from "@/components/ui/button";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+"use client";
+
+import clsx from "clsx";
+import { useTransition } from "react";
+import { Locale, locales } from "@/i18n/config";
+import { setUserLocale } from "@/lib/locale";
+import { useLocale } from "next-intl";
 
 export default function LanguageToggle() {
-  const pathname = usePathname();
-  const currentLocale = pathname.split("/")[1];
-  const newLocale = currentLocale === "en" ? "vi" : "en";
-  const newPath = pathname.replace(`/${currentLocale}`, `/${newLocale}`);
+  const [isPending, startTransition] = useTransition();
+  const currentLocale = useLocale() as Locale;
+
+  function toggleLanguage() {
+    const currentIndex = locales.indexOf(currentLocale);
+    const nextIndex = (currentIndex + 1) % locales.length;
+    const nextLocale = locales[nextIndex];
+
+    startTransition(() => {
+      setUserLocale(nextLocale);
+    });
+  }
 
   return (
-    <Link href={newPath}>
-      <Button variant="outline" size="icon">
-        {newLocale.toUpperCase().slice(0, 2)}
-        <span className="sr-only">
-          Switch language to {newLocale.toUpperCase()}
-        </span>
-      </Button>
-    </Link>
+    <button
+      onClick={toggleLanguage}
+      disabled={isPending}
+      aria-label="Đổi ngôn ngữ"
+      className={clsx(
+        "rounded-sm p-2 transition-colors hover:bg-slate-200 select-none",
+        isPending && "pointer-events-none opacity-60"
+      )}
+    >
+      <span className="text-sm font-medium text-slate-700">
+        {currentLocale.toUpperCase()}
+      </span>
+    </button>
   );
 }

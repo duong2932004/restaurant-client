@@ -9,7 +9,7 @@ const leckerliOne = localFont({
 });
 
 export default function HomeComponent() {
-  const t = useTranslations("Home");
+  const t = useTranslations("home");
 
   return (
     <div

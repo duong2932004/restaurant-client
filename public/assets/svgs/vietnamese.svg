@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Vietnam flag circle">
+  <defs>
+    <clipPath id="r">
+      <circle cx="256" cy="256" r="256"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#r)">
+    <rect width="512" height="512" fill="#DA251D"/>
+    <polygon fill="#FFCD00"
+      points="256,96 286,236 426,236 309,316 347,436 256,362 165,436 203,316 86,236 226,236"/>
+  </g>
+</svg>

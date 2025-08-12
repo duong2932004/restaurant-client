@@ -1,0 +1,12 @@
+{
+  "title": "Login to your account",
+  "describe": "Enter your email below to login to your account",
+  "email": "Email",
+  "password": "Password",
+  "forgotPassword": "Forgot Password",
+  "login": "Login",
+  "describe2": "Or continue with",
+  "login2": "Login with Google",
+  "question": "Don't have an account?",
+  "signUp": "Sign up"
+}

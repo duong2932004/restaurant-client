@@ -1,0 +1,10 @@
+{
+  "title": "Đăng ký tài khoản",
+  "describe": "Đăng ký tài khoản để nhận ưu đãi",
+  "userName": "Tên tài khoản",
+  "password": "Mật khẩu",
+  "reEnterPassword": "Nhập lại mật khẩu",
+  "register": "Đăng Ký",
+  "describe2": "Hoặc tiếp tục với",
+  "login2": "Đăng nhập bằng Google"
+}

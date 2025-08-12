@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
-
-const intlMiddleware = createMiddleware(routing);
 
 export default function middleware(req: NextRequest) {
   const { cookies, nextUrl: url } = req;
@@ -26,21 +22,19 @@ export default function middleware(req: NextRequest) {
   if (isProtectedPath) {
     const accessToken = cookies.get("accessToken")?.value;
     if (!accessToken) {
-      const locale = url.pathname.split("/")[1];
-
       if (isAdminRoute) {
-        const loginUrl = new URL(`/${locale}/admin/login`, url.origin);
+        const loginUrl = new URL("/admin/login", url.origin);
         loginUrl.search = url.search;
         return NextResponse.redirect(loginUrl);
       }
 
-      const loginUrl = new URL(`/${locale}/login`, url.origin);
+      const loginUrl = new URL("/login", url.origin);
       loginUrl.search = url.search;
       return NextResponse.redirect(loginUrl);
     }
   }
 
-  return intlMiddleware(req);
+  return NextResponse.next();
 }
 
 export const config = {

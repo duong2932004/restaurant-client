@@ -1,0 +1,10 @@
+{
+  "title": "Register Account",
+  "describe": "Register an account to receive promotions",
+  "userName": "Username",
+  "password": "Password",
+  "reEnterPassword": "Re-enter Password",
+  "register": "Register",
+  "describe2": "Or continue with",
+  "login2": "Login with Google"
+}
