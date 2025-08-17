@@ -13,7 +13,7 @@ export default function HomeComponent() {
 
   return (
     <div
-      className={`w-full min-h-screen flex flex-col-reverse md:flex-row items-center justify-between px-6 py-12 ${leckerliOne.variable}`}
+      className={`w-full min-h-screen flex flex-col-reverse md:flex-row items-center justify-between px-6 pt-12 ${leckerliOne.variable}`}
     >
       <div className="md:w-1/2 text-center md:text-left space-y-6">
         <h1
