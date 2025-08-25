@@ -14,6 +14,7 @@ export function RegisterForm({
   ...props
 }: React.ComponentProps<"form">) {
   const t = useTranslations("register");
+  const tAuth = useTranslations("auth");
   const registerMutation = useRegister();
   const { showToast } = useToast();
 
@@ -28,20 +29,27 @@ export function RegisterForm({
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Mật khẩu không khớp!");
+      showToast("Lỗi", t("passwordMismatch"), "error");
       return;
     }
 
     try {
-      await registerMutation.mutateAsync({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
+      await registerMutation.mutate(
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        },
+        tAuth
+      );
 
-      alert("Đăng ký thành công! Bạn được chuyển về trang đăng nhập");
+      showToast("Thành công", tAuth("registerSuccess"), "success");
     } catch (error: any) {
-      alert(error.response?.data?.message || "Đăng ký thất bại");
+      showToast(
+        "Lỗi",
+        error.response?.data?.message || tAuth("registerFailed"),
+        "error"
+      );
     }
   };
 
@@ -118,9 +126,9 @@ export function RegisterForm({
         <Button
           type="submit"
           className="w-full"
-          disabled={registerMutation.isPending}
+          disabled={registerMutation.isLoading}
         >
-          {registerMutation.isPending ? "Đang đăng ký..." : t("register")}
+          {registerMutation.isLoading ? "Đang đăng ký..." : t("register")}
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">

@@ -2,20 +2,26 @@
 
 import { useCurrentUser, useLogout } from "@/hooks/useAuth";
 import { Header } from "@/components/layout/Header";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
+  Button,
+  Input,
+  Label,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Badge,
+  Separator,
+  LoadingContainer,
+} from "@/components/ui";
 import {
   User,
   Mail,
@@ -27,9 +33,13 @@ import {
   LogOut,
   Edit3,
 } from "lucide-react";
+
 import { useToast } from "@/contexts/ToastContext";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 export default function AccountPage() {
   const { data: user, isLoading, isError } = useCurrentUser();
@@ -37,16 +47,32 @@ export default function AccountPage() {
   const logoutMutation = useLogout();
   const [isEditing, setIsEditing] = useState(false);
 
-  const t = useTranslations();
+  const schema = z.object({
+    name: z.string().min(1, { message: "Name is required" }),
+    email: z.string().email({ message: "Invalid email address" }),
+    phone: z.string().min(1, { message: "Phone is required" }),
+  });
+
+  type FormData = z.infer<typeof schema>;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
+
+  const tBar = useTranslations("account.attributeBar");
+  const t = useTranslations("account.page");
+  const tAuth = useTranslations("auth");
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
-          </div>
+          <LoadingContainer />
         </div>
       </div>
     );
@@ -61,13 +87,15 @@ export default function AccountPage() {
     return null;
   }
 
-  const handleSaveProfile = () => {
-    setIsEditing(false);
+  const handleSaveProfile = async (data: FormData) => {
+    // setIsEditing(false);
+    console.log(data);
+
     showToast("Thành công!", "Thông tin tài khoản đã được cập nhật", "success");
   };
 
   const handleLogout = () => {
-    logoutMutation.mutate();
+    logoutMutation.mutate(tAuth);
   };
 
   return (
@@ -105,7 +133,7 @@ export default function AccountPage() {
               className="flex items-center space-x-2"
             >
               <Edit3 className="h-4 w-4" />
-              <span>{isEditing ? "Hủy" : "Chỉnh sửa"}</span>
+              <span>{isEditing ? t("cancel") : t("edit")}</span>
             </Button>
           </div>
         </div>
@@ -117,25 +145,25 @@ export default function AccountPage() {
               className="flex items-center space-x-2"
             >
               <User className="h-4 w-4" />
-              <span>Thông tin cá nhân</span>
+              <span>{tBar("personalInformation")}</span>
             </TabsTrigger>
             <TabsTrigger value="orders" className="flex items-center space-x-2">
               <ShoppingBag className="h-4 w-4" />
-              <span>Đơn hàng</span>
+              <span>{tBar("order")}</span>
             </TabsTrigger>
             <TabsTrigger
               value="favorites"
               className="flex items-center space-x-2"
             >
               <Heart className="h-4 w-4" />
-              <span>Yêu thích</span>
+              <span>{tBar("favourite")}</span>
             </TabsTrigger>
             <TabsTrigger
               value="settings"
               className="flex items-center space-x-2"
             >
               <Settings className="h-4 w-4" />
-              <span>Cài đặt</span>
+              <span>{tBar("settings")}</span>
             </TabsTrigger>
           </TabsList>
 
@@ -143,62 +171,65 @@ export default function AccountPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Thông tin cơ bản</CardTitle>
-                  <CardDescription>
-                    Quản lý thông tin cá nhân của bạn
-                  </CardDescription>
+                  <CardTitle>{t("basicInfoTitle")}</CardTitle>
+                  <CardDescription>{t("basicInfoDesc")}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Họ và tên</Label>
-                    <Input
-                      id="name"
-                      defaultValue={user.name}
-                      disabled={!isEditing}
-                      className={isEditing ? "" : "bg-gray-50"}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      defaultValue={user.email}
-                      disabled={!isEditing}
-                      className={isEditing ? "" : "bg-gray-50"}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Số điện thoại</Label>
-                    <Input
-                      id="phone"
-                      defaultValue={user.phone || ""}
-                      placeholder="Nhập số điện thoại"
-                      disabled={!isEditing}
-                      className={isEditing ? "" : "bg-gray-50"}
-                    />
-                  </div>
-                  {isEditing && (
-                    <div className="flex space-x-2 pt-4">
-                      <Button onClick={handleSaveProfile} className="flex-1">
-                        Lưu thay đổi
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={() => setIsEditing(false)}
-                        className="flex-1"
-                      >
-                        Hủy
-                      </Button>
+                  <form onSubmit={handleSubmit(handleSaveProfile)}>
+                    <div className="space-y-2">
+                      <Label htmlFor="name">{t("name")}</Label>
+                      <Input
+                        id="name"
+                        {...register("name")}
+                        defaultValue={user.name}
+                        disabled={!isEditing}
+                        className={isEditing ? "" : "bg-gray-50"}
+                      />
                     </div>
-                  )}
+                    <div className="space-y-2 mt-2">
+                      <Label htmlFor="email">{t("email")}</Label>
+                      <Input
+                        id="email"
+                        {...register("email")}
+                        type="email"
+                        defaultValue={user.email}
+                        disabled={!isEditing}
+                        className={isEditing ? "" : "bg-gray-50"}
+                      />
+                    </div>
+                    <div className="space-y-2 mt-2">
+                      <Label htmlFor="phone">{t("phone")}</Label>
+                      <Input
+                        id="phone"
+                        {...register("phone")}
+                        defaultValue={user.phone || ""}
+                        placeholder={t("phonePlaceholder")}
+                        disabled={!isEditing}
+                        className={isEditing ? "" : "bg-gray-50"}
+                      />
+                    </div>
+                    {isEditing && (
+                      <div className="flex space-x-2 pt-4">
+                        <Button type="submit" className="flex-1">
+                          {t("saveChanges")}
+                        </Button>
+                        <Button
+                          variant="outline"
+                          onClick={() => setIsEditing(false)}
+                          className="flex-1"
+                        >
+                          {t("cancel")}
+                        </Button>
+                      </div>
+                    )}
+                  </form>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Địa chỉ</CardTitle>
-                  <CardDescription>Quản lý địa chỉ giao hàng</CardDescription>
+                  <CardTitle>{t("addressesTitle")}</CardTitle>
+                  <CardDescription>{t("addressesDesc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {user.addresses && user.addresses.length > 0 ? (
@@ -214,7 +245,7 @@ export default function AccountPage() {
                               </p>
                             </div>
                             {address.isDefault && (
-                              <Badge variant="secondary">Mặc định</Badge>
+                              <Badge variant="secondary">{t("default")}</Badge>
                             )}
                           </div>
                         </div>
@@ -223,9 +254,9 @@ export default function AccountPage() {
                   ) : (
                     <div className="text-center py-6 text-gray-500">
                       <MapPin className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                      <p>Chưa có địa chỉ nào</p>
+                      <p>{t("noAddress")}</p>
                       <Button variant="outline" className="mt-2">
-                        Thêm địa chỉ
+                        {t("addAddress")}
                       </Button>
                     </div>
                   )}
@@ -237,17 +268,15 @@ export default function AccountPage() {
           <TabsContent value="orders">
             <Card>
               <CardHeader>
-                <CardTitle>Lịch sử đơn hàng</CardTitle>
-                <CardDescription>Xem tất cả đơn hàng của bạn</CardDescription>
+                <CardTitle>{t("ordersTitle")}</CardTitle>
+                <CardDescription>{t("ordersDesc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-12 text-gray-500">
                   <ShoppingBag className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                  <p className="text-lg font-medium mb-2">
-                    Chưa có đơn hàng nào
-                  </p>
-                  <p className="text-sm">Hãy đặt món ngon đầu tiên của bạn!</p>
-                  <Button className="mt-4">Đặt hàng ngay</Button>
+                  <p className="text-lg font-medium mb-2">{t("noOrders")}</p>
+                  <p className="text-sm">{t("ordersHint")}</p>
+                  <Button className="mt-4">{t("orderNow")}</Button>
                 </div>
               </CardContent>
             </Card>
@@ -257,19 +286,15 @@ export default function AccountPage() {
           <TabsContent value="favorites">
             <Card>
               <CardHeader>
-                <CardTitle>Món ăn yêu thích</CardTitle>
-                <CardDescription>Những món ăn bạn đã yêu thích</CardDescription>
+                <CardTitle>{t("favoritesTitle")}</CardTitle>
+                <CardDescription>{t("favoritesDesc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-12 text-gray-500">
                   <Heart className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                  <p className="text-lg font-medium mb-2">
-                    Chưa có món yêu thích
-                  </p>
-                  <p className="text-sm">
-                    Thêm các món ăn vào danh sách yêu thích
-                  </p>
-                  <Button className="mt-4">Khám phá menu</Button>
+                  <p className="text-lg font-medium mb-2">{t("noFavorites")}</p>
+                  <p className="text-sm">{t("favoritesHint")}</p>
+                  <Button className="mt-4">{t("exploreMenu")}</Button>
                 </div>
               </CardContent>
             </Card>
@@ -279,31 +304,31 @@ export default function AccountPage() {
             <div className="space-y-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Cài đặt tài khoản</CardTitle>
-                  <CardDescription>Quản lý tùy chọn tài khoản</CardDescription>
+                  <CardTitle>{t("settingsTitle")}</CardTitle>
+                  <CardDescription>{t("settingsDesc")}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between p-4 border rounded-lg">
                     <div>
-                      <h3 className="font-medium">Thông báo email</h3>
+                      <h3 className="font-medium">{t("emailNotif")}</h3>
                       <p className="text-sm text-gray-600">
-                        Nhận thông báo về đơn hàng qua email
+                        {t("emailNotifDesc")}
                       </p>
                     </div>
                     <Button variant="outline" size="sm">
-                      Bật
+                      {t("turnOn")}
                     </Button>
                   </div>
 
                   <div className="flex items-center justify-between p-4 border rounded-lg">
                     <div>
-                      <h3 className="font-medium">Thông báo khuyến mãi</h3>
+                      <h3 className="font-medium">{t("promoNotif")}</h3>
                       <p className="text-sm text-gray-600">
-                        Nhận thông tin về ưu đãi và khuyến mãi
+                        {t("promoNotifDesc")}
                       </p>
                     </div>
                     <Button variant="outline" size="sm">
-                      Tắt
+                      {t("turnOff")}
                     </Button>
                   </div>
 
@@ -311,10 +336,10 @@ export default function AccountPage() {
 
                   <div className="flex items-center justify-between p-4 border rounded-lg border-red-200 bg-red-50">
                     <div>
-                      <h3 className="font-medium text-red-900">Đăng xuất</h3>
-                      <p className="text-sm text-red-600">
-                        Đăng xuất khỏi tài khoản
-                      </p>
+                      <h3 className="font-medium text-red-900">
+                        {t("logoutTitle")}
+                      </h3>
+                      <p className="text-sm text-red-600">{t("logoutDesc")}</p>
                     </div>
                     <Button
                       variant="destructive"
@@ -323,7 +348,7 @@ export default function AccountPage() {
                       className="flex items-center space-x-2"
                     >
                       <LogOut className="h-4 w-4" />
-                      <span>Đăng xuất</span>
+                      <span>{t("logoutButton")}</span>
                     </Button>
                   </div>
                 </CardContent>

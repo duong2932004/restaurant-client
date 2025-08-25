@@ -1,8 +1,12 @@
 {
-  "Home": {
+  "home": {
     "title": "Chào mừng đến với Nhà hàng của Dương",
     "about": "Trải nghiệm ẩm thực Việt đích thực trong không gian ấm cúng và sang trọng.",
     "button": "Đặt chỗ"
+  },
+  "common": {
+    "welcome": "Chào mừng đến với Nhà hàng của Dương",
+    "scanQR": "Quét mã QR để đặt hàng"
   },
   "headers": {
     "menu": "Thực đơn",
@@ -31,6 +35,68 @@
     "reEnterPassword": "Nhập lại mật khẩu",
     "register": "Đăng Ký",
     "describe2": "Hoặc tiếp tục với",
-    "login2": "Đăng nhập bằng Google"
+    "login2": "Đăng nhập bằng Google",
+    "passwordMismatch": "Mật khẩu không khớp!",
+    "registerSuccess": "Đăng ký thành công! Bạn được chuyển về trang đăng nhập",
+    "registerFailed": "Đăng ký thất bại"
+  },
+  "auth": {
+    "registerSuccess": "Thành công!",
+    "registerSuccessDesc": "Đăng ký thành công. Vui lòng đăng nhập.",
+    "registerError": "Lỗi đăng ký",
+    "registerErrorDesc": "Đăng ký thất bại. Vui lòng thử lại.",
+    "loginSuccess": "Thành công!",
+    "loginSuccessDesc": "Đăng nhập thành công.",
+    "loginError": "Lỗi đăng nhập",
+    "loginErrorDesc": "Đăng nhập thất bại. Vui lòng thử lại.",
+    "logoutSuccess": "Đăng xuất",
+    "logoutSuccessDesc": "Bạn đã đăng xuất thành công",
+    "logoutError": "Lỗi đăng xuất",
+    "logoutErrorDesc": "Đăng xuất thất bại. Vui lòng thử lại."
+  },
+  "account": {
+    "attributeBar": {
+      "personalInformation": "Thông tin cá nhân",
+      "order": "Đơn hàng",
+      "favourite": "Yêu thích",
+      "settings": "Cài đặt"
+    },
+    "page": {
+      "edit": "Chỉnh sửa",
+      "cancel": "Hủy",
+      "basicInfoTitle": "Thông tin cơ bản",
+      "basicInfoDesc": "Quản lý thông tin cá nhân của bạn",
+      "name": "Họ và tên",
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "phonePlaceholder": "Nhập số điện thoại",
+      "saveChanges": "Lưu thay đổi",
+      "addressesTitle": "Địa chỉ",
+      "addressesDesc": "Quản lý địa chỉ giao hàng",
+      "default": "Mặc định",
+      "noAddress": "Chưa có địa chỉ nào",
+      "addAddress": "Thêm địa chỉ",
+      "ordersTitle": "Lịch sử đơn hàng",
+      "ordersDesc": "Xem tất cả đơn hàng của bạn",
+      "noOrders": "Chưa có đơn hàng nào",
+      "ordersHint": "Hãy đặt món ngon đầu tiên của bạn!",
+      "orderNow": "Đặt hàng ngay",
+      "favoritesTitle": "Món ăn yêu thích",
+      "favoritesDesc": "Những món ăn bạn đã yêu thích",
+      "noFavorites": "Chưa có món yêu thích",
+      "favoritesHint": "Thêm các món ăn vào danh sách yêu thích",
+      "exploreMenu": "Khám phá menu",
+      "settingsTitle": "Cài đặt tài khoản",
+      "settingsDesc": "Quản lý tùy chọn tài khoản",
+      "emailNotif": "Thông báo email",
+      "emailNotifDesc": "Nhận thông báo về đơn hàng qua email",
+      "promoNotif": "Thông báo khuyến mãi",
+      "promoNotifDesc": "Nhận thông tin về ưu đãi và khuyến mãi",
+      "turnOn": "Bật",
+      "turnOff": "Tắt",
+      "logoutTitle": "Đăng xuất",
+      "logoutDesc": "Đăng xuất khỏi tài khoản",
+      "logoutButton": "Đăng xuất"
+    }
   }
 }

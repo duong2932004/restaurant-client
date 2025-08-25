@@ -1,8 +1,12 @@
 {
-  "Home": {
+  "home": {
     "title": "Welcome to Duong Restaurant",
     "about": "Experience authentic Vietnamese cuisine in a cozy and luxurious space.",
     "button": "Make a Reservation"
+  },
+  "common": {
+    "welcome": "Welcome to Duong Restaurant",
+    "scanQR": "Scan QR code to order"
   },
   "headers": {
     "menu": "Menu",
@@ -31,6 +35,68 @@
     "reEnterPassword": "Re-enter Password",
     "register": "Register",
     "describe2": "Or continue with",
-    "login2": "Login with Google"
+    "login2": "Login with Google",
+    "passwordMismatch": "Passwords do not match!",
+    "registerSuccess": "Registration successful! You will be redirected to login page",
+    "registerFailed": "Registration failed"
+  },
+  "auth": {
+    "registerSuccess": "Success!",
+    "registerSuccessDesc": "Registration successful. Please login.",
+    "registerError": "Registration Error",
+    "registerErrorDesc": "Registration failed. Please try again.",
+    "loginSuccess": "Success!",
+    "loginSuccessDesc": "Login successful.",
+    "loginError": "Login Error",
+    "loginErrorDesc": "Login failed. Please try again.",
+    "logoutSuccess": "Logout",
+    "logoutSuccessDesc": "You have logged out successfully",
+    "logoutError": "Logout Error",
+    "logoutErrorDesc": "Logout failed. Please try again."
+  },
+  "account": {
+    "attributeBar": {
+      "personalInformation": "Personal information",
+      "order": "Orders",
+      "favourite": "Favorites",
+      "settings": "Settings"
+    },
+    "page": {
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "basicInfoTitle": "Basic information",
+      "basicInfoDesc": "Manage your personal information",
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "phonePlaceholder": "Enter phone number",
+      "saveChanges": "Save changes",
+      "addressesTitle": "Addresses",
+      "addressesDesc": "Manage shipping addresses",
+      "default": "Default",
+      "noAddress": "No addresses yet",
+      "addAddress": "Add address",
+      "ordersTitle": "Order history",
+      "ordersDesc": "View all your orders",
+      "noOrders": "No orders yet",
+      "ordersHint": "Place your first delicious order!",
+      "orderNow": "Order now",
+      "favoritesTitle": "Favorite dishes",
+      "favoritesDesc": "Dishes you've marked as favorite",
+      "noFavorites": "No favorites yet",
+      "favoritesHint": "Add dishes to your favorites list",
+      "exploreMenu": "Explore menu",
+      "settingsTitle": "Account settings",
+      "settingsDesc": "Manage your account preferences",
+      "emailNotif": "Email notifications",
+      "emailNotifDesc": "Receive order updates via email",
+      "promoNotif": "Promotion notifications",
+      "promoNotifDesc": "Get information about offers and promotions",
+      "turnOn": "On",
+      "turnOff": "Off",
+      "logoutTitle": "Log out",
+      "logoutDesc": "Sign out of your account",
+      "logoutButton": "Log out"
+    }
   }
 }

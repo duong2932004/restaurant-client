@@ -23,6 +23,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"form">) {
   const t = useTranslations("login");
+  const tAuth = useTranslations("auth");
   const loginMutation = useLogin();
   const { showToast } = useToast();
 
@@ -36,10 +37,13 @@ export function LoginForm({
 
   const onSubmit = async (data: FormData) => {
     try {
-      await loginMutation.mutateAsync({
-        email: data.email,
-        password: data.password,
-      });
+      await loginMutation.mutate(
+        {
+          email: data.email,
+          password: data.password,
+        },
+        tAuth
+      );
     } catch (error) {
       console.error("Login error:", error);
     }
@@ -94,9 +98,9 @@ export function LoginForm({
         <Button
           type="submit"
           className="w-full"
-          disabled={loginMutation.isPending}
+          disabled={loginMutation.isLoading}
         >
-          {loginMutation.isPending ? "Đang đăng nhập..." : t("login")}
+          {loginMutation.isLoading ? "Đang đăng nhập..." : t("login")}
         </Button>
 
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
