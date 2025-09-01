@@ -25,6 +25,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 
 export function NavUser({
   user,
@@ -102,10 +103,10 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={handleLogout}
-              disabled={logoutMutation.isPending}
+              disabled={logoutMutation.isLoading}
             >
               <IconLogout />
-              {logoutMutation.isPending ? "Đang đăng xuất..." : "Đăng xuất"}
+              {logoutMutation.isLoading ? "Đang đăng xuất..." : "Đăng xuất"}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

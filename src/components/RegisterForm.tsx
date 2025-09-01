@@ -86,7 +86,7 @@ export function RegisterForm() {
         />
       </div>
 
-      {registerMutation.isError && (
+      {registerMutation.error && (
         <div className="text-red-500">
           {registerMutation.error?.message || "Có lỗi xảy ra"}
         </div>
@@ -94,10 +94,10 @@ export function RegisterForm() {
 
       <button
         type="submit"
-        disabled={registerMutation.isPending}
+        disabled={registerMutation.isLoading}
         className="w-full p-2 bg-blue-500 text-white rounded disabled:opacity-50"
       >
-        {registerMutation.isPending ? "Đang đăng ký..." : "Đăng ký"}
+        {registerMutation.isLoading ? "Đang đăng ký..." : "Đăng ký"}
       </button>
     </form>
   );

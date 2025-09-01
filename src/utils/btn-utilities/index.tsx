@@ -4,7 +4,7 @@ import DarkModeToggle from "@/utils/btn-utilities/darkMode/ModeToggle";
 export default function UtilityButtons() {
   return (
     <div className="flex items-center gap-2">
-      <DarkModeToggle />
+      {/* <DarkModeToggle /> */}
       <LanguageToggle />
     </div>
   );
