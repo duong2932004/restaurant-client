@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLogin } from "@/hooks/useAuth";
-import { useToast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 
 const schema = z.object({
   email: z.string().email("email không hợp lệ"),
@@ -25,7 +25,6 @@ export function LoginForm({
   const t = useTranslations("login");
   const tAuth = useTranslations("auth");
   const loginMutation = useLogin();
-  const { showToast } = useToast();
 
   const {
     register,
@@ -113,11 +112,9 @@ export function LoginForm({
           variant="outline"
           className="w-full"
           onClick={() =>
-            showToast(
-              "Notification",
-              "Tính năng đang được phát triển",
-              "warning"
-            )
+            toast.warning("Notification", {
+              description: "Tính năng đang được phát triển",
+            })
           }
         >
           <img src="/assets/svgs/logo-google.svg" style={{ height: "100%" }} />

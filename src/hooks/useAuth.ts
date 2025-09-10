@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { userService, User } from "@/services/user.service";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 
 export const useCurrentUser = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -42,7 +42,6 @@ export const useCurrentUser = () => {
 
 export const useRegister = () => {
   const router = useRouter();
-  const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -52,31 +51,29 @@ export const useRegister = () => {
         setIsLoading(true);
         setError(null);
         const user = await userService.register(data);
-        showToast(
-          t?.("registerSuccess") || "Thành công!",
-          t?.("registerSuccessDesc") ||
+        toast.success(t?.("registerSuccess") || "Thành công!", {
+          description:
+            t?.("registerSuccessDesc") ||
             "Đăng ký thành công. Vui lòng đăng nhập.",
-          "success"
-        );
+        });
         router.push("/login");
         return user;
       } catch (err) {
         const error =
           err instanceof Error ? err : new Error("Registration failed");
         setError(error);
-        showToast(
-          t?.("registerError") || "Lỗi đăng ký",
-          error.message ||
+        toast.error(t?.("registerError") || "Lỗi đăng ký", {
+          description:
+            error.message ||
             t?.("registerErrorDesc") ||
             "Đăng ký thất bại. Vui lòng thử lại.",
-          "error"
-        );
+        });
         throw error;
       } finally {
         setIsLoading(false);
       }
     },
-    [router, showToast]
+    [router]
   );
 
   return {
@@ -88,7 +85,6 @@ export const useRegister = () => {
 
 export const useLogin = () => {
   const router = useRouter();
-  const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -98,29 +94,26 @@ export const useLogin = () => {
         setIsLoading(true);
         setError(null);
         const user = await userService.login(data);
-        showToast(
-          t?.("updateSuccess") || "Success!",
-          t?.("updateSuccessDesc") || "Login successful.",
-          "success"
-        );
+        toast.success(t?.("updateSuccess") || "Success!", {
+          description: t?.("updateSuccessDesc") || "Login successful.",
+        });
         router.push("/");
         return user;
       } catch (err) {
         const error = err instanceof Error ? err : new Error("Login failed");
         setError(error);
-        showToast(
-          t?.("loginError") || "Login error",
-          error.message ||
+        toast.error(t?.("loginError") || "Login error", {
+          description:
+            error.message ||
             t?.("loginErrorDesc") ||
             "Login failed. Please try again.",
-          "error"
-        );
+        });
         throw error;
       } finally {
         setIsLoading(false);
       }
     },
-    [router, showToast]
+    [router]
   );
 
   return {
@@ -132,28 +125,24 @@ export const useLogin = () => {
 
 const useUpdateUser = () => {
   const router = useRouter();
-  const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   const update = useCallback(
     (data: UpdateData, t?: (key: string) => string) => {
       try {
-        showToast(
-          t?.("loginSuccess") || "Thành công!",
-          t?.("loginSuccessDesc") || "Đăng nhập thành công.",
-          "success"
-        );
+        toast.success(t?.("loginSuccess") || "Thành công!", {
+          description: t?.("loginSuccessDesc") || "Đăng nhập thành công.",
+        });
       } catch (err) {
         const error = err instanceof Error ? err : new Error("Login failed");
         setError(error);
-        showToast(
-          t?.("loginError") || "Login error",
-          error.message ||
+        toast.error(t?.("loginError") || "Login error", {
+          description:
+            error.message ||
             t?.("loginErrorDesc") ||
             "update failed. Please try again.",
-          "error"
-        );
+        });
         throw error;
       } finally {
         setIsLoading(false);
@@ -165,7 +154,6 @@ const useUpdateUser = () => {
 
 export const useLogout = () => {
   const router = useRouter();
-  const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -175,28 +163,26 @@ export const useLogout = () => {
         setIsLoading(true);
         setError(null);
         await userService.logout();
-        showToast(
-          t?.("logoutSuccess") || "Đăng xuất",
-          t?.("logoutSuccessDesc") || "Bạn đã đăng xuất thành công",
-          "info"
-        );
+        toast.info(t?.("logoutSuccess") || "Đăng xuất", {
+          description:
+            t?.("logoutSuccessDesc") || "Bạn đã đăng xuất thành công",
+        });
         router.push("/login");
       } catch (err) {
         const error = err instanceof Error ? err : new Error("Logout failed");
         setError(error);
-        showToast(
-          t?.("logoutError") || "Lỗi đăng xuất",
-          error.message ||
+        toast.error(t?.("logoutError") || "Lỗi đăng xuất", {
+          description:
+            error.message ||
             t?.("logoutErrorDesc") ||
             "Đăng xuất thất bại. Vui lòng thử lại.",
-          "error"
-        );
+        });
         throw error;
       } finally {
         setIsLoading(false);
       }
     },
-    [router, showToast]
+    [router]
   );
 
   return {

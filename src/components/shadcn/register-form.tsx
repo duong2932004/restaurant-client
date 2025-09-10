@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTranslations } from "next-intl";
 import { useRegister } from "@/hooks/useAuth";
-import { useToast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 
 export function RegisterForm({
   className,
@@ -16,7 +16,6 @@ export function RegisterForm({
   const t = useTranslations("register");
   const tAuth = useTranslations("auth");
   const registerMutation = useRegister();
-  const { showToast } = useToast();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,7 +28,9 @@ export function RegisterForm({
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      showToast("Lỗi", t("passwordMismatch"), "error");
+      toast.error("Lỗi", {
+        description: t("passwordMismatch"),
+      });
       return;
     }
 
@@ -43,13 +44,13 @@ export function RegisterForm({
         tAuth
       );
 
-      showToast("Thành công", tAuth("registerSuccess"), "success");
+      toast.success("Thành công", {
+        description: tAuth("registerSuccess"),
+      });
     } catch (error: any) {
-      showToast(
-        "Lỗi",
-        error.response?.data?.message || tAuth("registerFailed"),
-        "error"
-      );
+      toast.error("Lỗi", {
+        description: error.response?.data?.message || tAuth("registerFailed"),
+      });
     }
   };
 
@@ -140,11 +141,9 @@ export function RegisterForm({
           variant="outline"
           className="w-full"
           onClick={() =>
-            showToast(
-              "Notification",
-              "Tính năng đang được phát triển",
-              "warning"
-            )
+            toast.warning("Notification", {
+              description: "Tính năng đang được phát triển",
+            })
           }
         >
           <img src="/assets/svgs/logo-google.svg" style={{ height: "100%" }} />

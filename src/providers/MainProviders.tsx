@@ -5,8 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { store } from "@/store";
 import { ThemeProvider } from "@/utils/btn-utilities/darkMode/theme-provider";
-import { ToastProvider as ToastContextProvider } from "@/contexts/ToastContext";
-import { ToastContainer } from "@/components/ui/ToastContainer";
+import { Toaster } from "@/components/ui/sonner";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,10 +26,8 @@ export function MainProviders({ children }: { children: React.ReactNode }) {
           enableSystem
           disableTransitionOnChange
         >
-          <ToastContextProvider>
-            {children}
-            <ToastContainer />
-          </ToastContextProvider>
+          {children}
+          <Toaster />
         </ThemeProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

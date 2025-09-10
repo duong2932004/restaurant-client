@@ -34,7 +34,7 @@ import {
   Edit3,
 } from "lucide-react";
 
-import { useToast } from "@/contexts/ToastContext";
+import { toast } from "sonner";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { z } from "zod";
@@ -43,7 +43,6 @@ import { useForm } from "react-hook-form";
 
 export default function AccountPage() {
   const { data: user, isLoading, isError } = useCurrentUser();
-  const { showToast } = useToast();
   const logoutMutation = useLogout();
   const [isEditing, setIsEditing] = useState(false);
 
@@ -89,10 +88,12 @@ export default function AccountPage() {
 
   const handleSaveProfile = async (data: FormData) => {
     // setIsEditing(false);
-    
+
     console.log(data);
 
-    showToast("Thành công!", "Thông tin tài khoản đã được cập nhật", "success");
+    toast.success("Thành công!", {
+      description: "Thông tin tài khoản đã được cập nhật",
+    });
   };
 
   const handleLogout = () => {

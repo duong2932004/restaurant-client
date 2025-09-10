@@ -20,8 +20,6 @@ export * from "./skeleton";
 export * from "./sonner";
 export * from "./table";
 export * from "./tabs";
-export * from "./ToastComponent";
-export * from "./ToastContainer";
 export * from "./toggle-group";
 export * from "./toggle";
 export * from "./tooltip";

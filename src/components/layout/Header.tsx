@@ -4,13 +4,11 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { NavigationMenuDemo } from "./NavigationMenuDemo";
 import UtilityButtons from "@/utils/btn-utilities";
-import { useToast } from "@/contexts/ToastContext";
 import { useCurrentUser } from "@/hooks/useAuth";
 import Image from "next/image";
 
 export function Header() {
   const t = useTranslations("headers");
-  const { showToast } = useToast();
 
   const { data: user, isLoading, isError } = useCurrentUser();
 
@@ -43,17 +41,22 @@ export function Header() {
               {t("account")}
             </Link>
           ) : (
-            <Image
-              src={
-                user?.avatar == "" || user?.avatar == null
-                  ? "/assets/gif/user.gif"
-                  : "/assets/gif/user.gif"
-              }
-              alt="avatar"
-              className="rounded-full"
-              width={"100"}
-              height={"100"}
-            />
+            <Link
+              href="/account"
+              className="hover:text-primary transition font-medium"
+            >
+              <Image
+                src={
+                  user?.avatar == "" || user?.avatar == null
+                    ? "/assets/svgs/user.svg"
+                    : "/assets/svgs/user.svg"
+                }
+                alt="avatar"
+                className="rounded-full"
+                width={"20"}
+                height={"20"}
+              />
+            </Link>
           )}
           <UtilityButtons />
         </div>
