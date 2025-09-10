@@ -52,7 +52,10 @@
     "logoutSuccess": "Logout",
     "logoutSuccessDesc": "You have logged out successfully",
     "logoutError": "Logout Error",
-    "logoutErrorDesc": "Logout failed. Please try again."
+    "logoutErrorDesc": "Logout failed. Please try again.",
+    "updateSuccess": "Success!",
+    "updateSuccessDesc": "Information updated successfully.",
+    "updateError": "Update error"
   },
   "account": {
     "attributeBar": {

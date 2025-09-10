@@ -99,8 +99,8 @@ export const useLogin = () => {
         setError(null);
         const user = await userService.login(data);
         showToast(
-          t?.("loginSuccess") || "Thành công!",
-          t?.("loginSuccessDesc") || "Đăng nhập thành công.",
+          t?.("updateSuccess") || "Success!",
+          t?.("updateSuccessDesc") || "Login successful.",
           "success"
         );
         router.push("/");
@@ -109,10 +109,10 @@ export const useLogin = () => {
         const error = err instanceof Error ? err : new Error("Login failed");
         setError(error);
         showToast(
-          t?.("loginError") || "Lỗi đăng nhập",
+          t?.("loginError") || "Login error",
           error.message ||
             t?.("loginErrorDesc") ||
-            "Đăng nhập thất bại. Vui lòng thử lại.",
+            "Login failed. Please try again.",
           "error"
         );
         throw error;
@@ -128,6 +128,39 @@ export const useLogin = () => {
     isLoading,
     error,
   };
+};
+
+const useUpdateUser = () => {
+  const router = useRouter();
+  const { showToast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const update = useCallback(
+    (data: UpdateData, t?: (key: string) => string) => {
+      try {
+        showToast(
+          t?.("loginSuccess") || "Thành công!",
+          t?.("loginSuccessDesc") || "Đăng nhập thành công.",
+          "success"
+        );
+      } catch (err) {
+        const error = err instanceof Error ? err : new Error("Login failed");
+        setError(error);
+        showToast(
+          t?.("loginError") || "Login error",
+          error.message ||
+            t?.("loginErrorDesc") ||
+            "update failed. Please try again.",
+          "error"
+        );
+        throw error;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
 };
 
 export const useLogout = () => {
@@ -182,4 +215,11 @@ interface RegisterData {
 interface LoginData {
   email: string;
   password: string;
+}
+
+interface UpdateData {
+  name?: string;
+  email?: string;
+  avatar?: string;
+  passWord?: string;
 }

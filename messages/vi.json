@@ -52,7 +52,10 @@
     "logoutSuccess": "Đăng xuất",
     "logoutSuccessDesc": "Bạn đã đăng xuất thành công",
     "logoutError": "Lỗi đăng xuất",
-    "logoutErrorDesc": "Đăng xuất thất bại. Vui lòng thử lại."
+    "logoutErrorDesc": "Đăng xuất thất bại. Vui lòng thử lại.",
+    "updateSuccess": "Thành công!",
+    "updateSuccessDesc": "Câp nhật thông tin thành công.",
+    "updateError": "Lỗi cập nhật"
   },
   "account": {
     "attributeBar": {

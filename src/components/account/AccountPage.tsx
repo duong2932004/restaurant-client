@@ -89,6 +89,7 @@ export default function AccountPage() {
 
   const handleSaveProfile = async (data: FormData) => {
     // setIsEditing(false);
+    
     console.log(data);
 
     showToast("Thành công!", "Thông tin tài khoản đã được cập nhật", "success");

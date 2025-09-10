@@ -63,4 +63,13 @@ export const userService = {
       throw new Error(error.response?.data?.message || "Logout failed");
     }
   },
+
+  async updateUser(data: LoginData): Promise<User> {
+    try {
+      const response = await axiosInstance.post("/users/update", data);
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Update failed");
+    }
+  },
 };
